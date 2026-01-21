@@ -1,0 +1,13 @@
+# suspicious_pe.py - Creates fake PE with bad imports
+import struct
+
+# Fake PE header with suspicious imports
+pe_header = b"MZ" + b"\x90" * 58 + b"PE\x00\x00" + struct.pack("<I", 0x00004550)
+
+suspicious_imports = b"CreateRemoteThread\x00WriteProcessMemory\x00"
+
+with open("test_samples/suspicious.exe", "wb") as f:
+    f.write(pe_header)
+    f.write(suspicious_imports * 10)  # Repeat for entropy
+
+print("✅ Created suspicious.exe (PE test)")

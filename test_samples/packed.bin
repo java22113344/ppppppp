@@ -1,0 +1,8 @@
+# High entropy random data (simulates packer)
+python -c "
+import os
+data = os.urandom(1024*1024)  # 1MB random
+with open('test_samples/packed.bin', 'wb') as f:
+    f.write(data)
+print('✅ High entropy test created')
+"
